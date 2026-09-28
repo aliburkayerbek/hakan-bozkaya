@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Prof. Dr. Hakan Bozkaya | Gastroenteroloji ve Hepatoloji Uzmanı – Ankara</title>
+  <meta name="description" content="Prof. Dr. Hakan Bozkaya, Gastroenteroloji ve Hepatoloji Uzmanı. HC International Clinic, Çankaya / Ankara. Randevu: 0537 792 27 99" />
+  <meta name="theme-color" content="#0E2340" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:  { 950: '#081629', 900: '#0E2340', 800: '#16325A', 700: '#214573' },
+            teal:  { 700: '#0B6468', 600: '#0F7C80', 100: '#DDF0F0' },
+            gold:  { 500: '#B8955A', 300: '#D9C39A', 100: '#F5EDDF' },
+            mist:  { 50: '#F7F9FB', 100: '#EEF2F6', 200: '#DDE4EC', 500: '#6B7A90' }
+          },
+          fontFamily: {
+            display: ['Montserrat', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 1px 2px rgba(14,35,64,.04), 0 8px 24px -8px rgba(14,35,64,.12)',
+            lift: '0 2px 4px rgba(14,35,64,.05), 0 24px 48px -16px rgba(14,35,64,.22)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html { scroll-padding-top: 84px; }
+    body { -webkit-font-smoothing: antialiased; }
+    :focus-visible { outline: 2px solid #0F7C80; outline-offset: 3px; border-radius: 4px; }
+
+    /* Hero portrait: arch mask + offset gold frame */
+    .portrait-wrap { position: relative; width: min(100%, 340px); aspect-ratio: 295 / 455; }
+    .portrait-wrap::before {           /* navy block behind */
+      content: ""; position: absolute; inset: 28px -28px -28px 28px;
+      border-radius: 200px 200px 24px 24px;
+      background: linear-gradient(160deg, #16325A 0%, #0E2340 100%);
+    }
+    .portrait-wrap::after {            /* thin gold outline */
+      content: ""; position: absolute; inset: -14px 14px 14px -14px;
+      border-radius: 200px 200px 24px 24px;
+      border: 1.5px solid #B8955A; pointer-events: none;
+    }
+    .portrait {
+      position: relative; z-index: 1; width: 100%; height: 100%;
+      object-fit: cover; object-position: center 20%;
+      border-radius: 200px 200px 24px 24px;
+      box-shadow: 0 30px 60px -20px rgba(8,22,41,.45);
+      background: #EEF2F6;
+    }
+
+    /* Timeline */
+    .tl-item { position: relative; padding-left: 2.25rem; }
+    .tl-item::before {
+      content: ""; position: absolute; left: 7px; top: 0; bottom: -2rem; width: 2px; background: #DDE4EC;
+    }
+    .tl-item:last-child::before { display: none; }
+    .tl-dot {
+      position: absolute; left: 0; top: .3rem; width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; border: 3px solid #0F7C80;
+    }
+    .tl-item.is-current .tl-dot { border-color: #B8955A; background: #B8955A; box-shadow: 0 0 0 6px #F5EDDF; }
+
+    /* Header state */
+    #siteHeader.scrolled { background: rgba(255,255,255,.92); backdrop-filter: saturate(160%) blur(12px); box-shadow: 0 1px 0 #DDE4EC; }
+    .nav-link.active { color: #0F7C80; }
+    .nav-link.active::after { transform: scaleX(1); }
+    .nav-link::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: #0F7C80;
+      transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+    }
+
+    /* Mobile menu */
+    #mobileMenu { transition: opacity .25s ease, transform .25s ease; }
+    #mobileMenu.hidden-menu { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+
+    /* One orchestrated page-load moment in the hero */
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+    .rise-2 { animation-delay: .12s; } .rise-3 { animation-delay: .24s; } .rise-4 { animation-delay: .36s; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .rise { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Physician",
+    "name": "Prof. Dr. Hakan Bozkaya",
+    "medicalSpecialty": ["Gastroenterologic", "Hepatologic"],
+    "telephone": "+90 537 792 27 99",
+    "address": [
+      { "@type": "PostalAddress", "streetAddress": "Hoşdere Cd. No: 147", "postalCode": "06690", "addressLocality": "Çankaya", "addressRegion": "Ankara", "addressCountry": "TR" },
+      { "@type": "PostalAddress", "streetAddress": "İşçi Blokları, Ege Plaza, Mevlana Bulvarı 182/28", "addressLocality": "Balgat, Çankaya", "addressRegion": "Ankara", "addressCountry": "TR" }
+    ]
+  }
+  </script>
+</head>
+
+<body class="font-sans text-navy-900 bg-white">
+
+  <!-- ================= HEADER ================= -->
+  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 transition-all duration-300" style="padding-top: env(safe-area-inset-top, 0px);">
+    <nav class="max-w-7xl mx-auto px-5 lg:px-8 h-[72px] flex items-center justify-between" aria-label="Ana menü">
+      <a href="#anasayfa" class="flex items-center gap-3 group">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-navy-900 text-gold-300 font-display font-bold text-sm tracking-wide">HB</span>
+        <span class="leading-tight">
+          <span class="block font-display font-bold text-[15px] text-navy-900">Prof. Dr. Hakan Bozkaya</span>
+          <span class="block text-[12px] text-mist-500">Gastroenteroloji ve Hepatoloji</span>
+        </span>
+      </a>
+
+      <ul class="hidden lg:flex items-center gap-8 text-[14px] font-medium text-navy-800">
+        <li><a class="nav-link relative hover:text-teal-600 transition-colors" href="#hakkinda">Hakkında</a></li>
+        <li><a class="nav-link relative hover:text-teal-600 transition-colors" href="#akademik">Akademik</a></li>
+        <li><a class="nav-link relative hover:text-teal-600 transition-colors" href="#hizmetler">Hizmetler</a></li>
+        <li><a class="nav-link relative hover:text-teal-600 transition-colors" href="#kurumlar">Anlaşmalı Kurumlar</a></li>
+        <li><a class="nav-link relative hover:text-teal-600 transition-colors" href="#iletisim">İletişim</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <a href="tel:+905377922799" class="hidden sm:inline-flex items-center gap-2 text-[15px] font-semibold text-navy-900 hover:text-teal-700 transition-colors"><i class="fa-solid fa-phone text-teal-600 text-xs" aria-hidden="true"></i> 0537 792 27 99</a>
+        <button id="menuBtn" class="lg:hidden grid place-items-center w-11 h-11 rounded-full border border-mist-200 text-navy-900" aria-label="Menüyü aç" aria-expanded="false" aria-controls="mobileMenu">
+          <i class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden-menu lg:hidden absolute inset-x-0 top-full bg-white border-t border-mist-200 shadow-lift">
+      <ul class="px-5 py-4 flex flex-col text-[16px] font-medium text-navy-900">
+        <li><a class="mobile-link flex items-center justify-between py-3.5 border-b border-mist-100" href="#hakkinda">Hakkında <i class="fa-solid fa-chevron-right text-xs text-mist-500"></i></a></li>
+        <li><a class="mobile-link flex items-center justify-between py-3.5 border-b border-mist-100" href="#akademik">Akademik Başarılar <i class="fa-solid fa-chevron-right text-xs text-mist-500"></i></a></li>
+        <li><a class="mobile-link flex items-center justify-between py-3.5 border-b border-mist-100" href="#hizmetler">Hizmetler <i class="fa-solid fa-chevron-right text-xs text-mist-500"></i></a></li>
+        <li><a class="mobile-link flex items-center justify-between py-3.5 border-b border-mist-100" href="#kurumlar">Anlaşmalı Kurumlar <i class="fa-solid fa-chevron-right text-xs text-mist-500"></i></a></li>
+        <li><a class="mobile-link flex items-center justify-between py-3.5" href="#iletisim">İletişim <i class="fa-solid fa-chevron-right text-xs text-mist-500"></i></a></li>
+      </ul>
+      <div class="px-5 pb-5">
+        <a href="tel:+905377922799" class="flex items-center gap-2 text-[16px] font-semibold text-navy-900"><i class="fa-solid fa-phone text-teal-600" aria-hidden="true"></i> 0537 792 27 99</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section id="anasayfa" class="relative overflow-hidden bg-gradient-to-b from-mist-50 to-white pt-[120px] lg:pt-[140px] pb-20 lg:pb-28">
+      <!-- quiet background geometry -->
+      <div class="absolute -right-40 -top-40 w-[560px] h-[560px] rounded-full bg-teal-100/60 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute right-0 bottom-0 w-1/2 h-px bg-gradient-to-l from-gold-300 to-transparent" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-14 lg:gap-10 items-center">
+        <div class="lg:col-span-7 order-2 lg:order-1">
+          <p class="rise inline-flex items-center gap-2 rounded-full bg-white border border-mist-200 shadow-soft px-4 py-1.5 text-[13px] font-medium text-teal-700">
+            <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+            Eylül 2026'dan itibaren HC International Clinic'te hasta kabul ediyor
+          </p>
+
+          <h1 class="rise rise-2 mt-6 font-display font-extrabold text-navy-900 text-[40px] leading-[1.08] sm:text-[54px] lg:text-[64px] tracking-[-0.02em]">
+            Prof. Dr.<br />Hakan Bozkaya
+          </h1>
+
+          <p class="rise rise-2 mt-4 font-display font-semibold text-[18px] sm:text-[21px] text-navy-700">
+            Gastroenteroloji ve Hepatoloji Uzmanı
+          </p>
+
+          <div class="rise rise-3 mt-6 w-16 h-[2px] bg-gold-500"></div>
+
+          <p class="rise rise-3 mt-6 max-w-[34rem] text-[17px] leading-relaxed text-mist-500">
+            Sindirim sistemi ve karaciğer hastalıklarında otuz yılı aşkın klinik ve akademik deneyim. HC International Clinic bünyesinde hastalarına hizmet vermektedir.
+          </p>
+
+          <p class="rise rise-4 mt-9 flex items-center gap-3 font-display font-bold text-[22px] sm:text-[26px] text-navy-900">
+            <i class="fa-solid fa-phone text-gold-500 text-[18px]" aria-hidden="true"></i>
+            <a href="tel:+905377922799" class="hover:text-teal-700 transition-colors">0537 792 27 99</a>
+          </p>
+
+          <dl class="rise rise-4 mt-12 grid grid-cols-3 max-w-lg divide-x divide-mist-200 border-t border-mist-200 pt-6">
+            <div class="pr-4">
+              <dt class="text-[12px] text-mist-500">Atıf</dt>
+              <dd class="font-display font-bold text-[24px] text-navy-900">4.410</dd>
+            </div>
+            <div class="px-4">
+              <dt class="text-[12px] text-mist-500">H-index</dt>
+              <dd class="font-display font-bold text-[24px] text-navy-900">34</dd>
+            </div>
+            <div class="pl-4">
+              <dt class="text-[12px] text-mist-500">PubMed yayın</dt>
+              <dd class="font-display font-bold text-[24px] text-navy-900">69</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end">
+          <figure class="rise relative pr-8 pb-8 pl-4 pt-4">
+            <div class="portrait-wrap">
+              <img class="portrait" src="data:image/jpeg;base64,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" alt="Prof. Dr. Hakan Bozkaya portresi" width="295" height="455" />
+            </div>
+            <figcaption class="absolute z-10 -left-2 sm:-left-10 bottom-16 bg-white rounded-2xl shadow-lift px-4 py-3 flex items-center gap-3">
+              <span class="grid place-items-center w-10 h-10 rounded-full bg-gold-100 text-gold-500"><i class="fa-solid fa-award" aria-hidden="true"></i></span>
+              <span class="leading-tight">
+                <span class="block text-[13px] font-semibold text-navy-900">Rising Star, 1995</span>
+                <span class="block text-[12px] text-mist-500">Avrupa Gastroenteroloji</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HAKKINDA / ÖZGEÇMİŞ ================= -->
+    <section id="hakkinda" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4">
+          <div class="lg:sticky lg:top-28">
+            <h2 class="font-display font-bold text-[32px] sm:text-[40px] leading-tight tracking-[-0.01em]">Hakkında ve özgeçmiş</h2>
+            <p class="mt-5 text-[16px] leading-relaxed text-mist-500 max-w-md">
+              İstanbul Tıp Fakültesi'nden Ankara Üniversitesi'nin profesörlük kadrosuna, ABD'deki hepatoloji araştırmalarından özel hastane pratiğine uzanan bir kariyer.
+            </p>
+            <div class="mt-8 rounded-2xl bg-navy-900 text-white p-6">
+              <p class="text-[13px] text-gold-300 font-semibold">Güncel görev</p>
+              <p class="mt-2 font-display font-semibold text-[18px] leading-snug">HC International Clinic</p>
+              <p class="mt-1 text-[14px] text-white/70">Eylül 2026 itibarıyla hasta kabulü</p>
+            </div>
+          </div>
+        </div>
+
+        <ol class="lg:col-span-8 space-y-8">
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">1987</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">İstanbul Üniversitesi İstanbul Tıp Fakültesi</h3>
+            <p class="mt-1 text-mist-500">Tıp fakültesinden mezuniyet.</p>
+          </li>
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">1992</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">İç Hastalıkları Uzmanlığı</h3>
+            <p class="mt-1 text-mist-500">Ankara Üniversitesi Tıp Fakültesi.</p>
+          </li>
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">1993 – 1995</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">Hepatoloji Araştırma Asistanlığı</h3>
+            <p class="mt-1 text-mist-500">Tulane Üniversitesi, New Orleans, ABD.</p>
+          </li>
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">1995</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">Avrupa'da Gastroenterolojide Yükselen Yıldız</h3>
+            <p class="mt-1 text-mist-500">Avrupa gastroenteroloji camiasında “Rising Star” seçildi.</p>
+          </li>
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">1996</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">Gastroenteroloji Yan Dal Uzmanlığı</h3>
+            <p class="mt-1 text-mist-500">Ankara Üniversitesi Tıp Fakültesi.</p>
+          </li>
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">1997 – 2014</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">Ankara Üniversitesi: Doçentlik ve Profesörlük</h3>
+            <p class="mt-1 text-mist-500">1997'de doçent, 2003–2014 yılları arasında profesör olarak görev yaptı.</p>
+          </li>
+          <li class="tl-item">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-teal-600 text-[14px]">2015 – 2026</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">Özel hastane ve muayenehane dönemi</h3>
+            <div class="mt-3 grid sm:grid-cols-3 gap-3">
+              <div class="rounded-xl border border-mist-200 p-4">
+                <p class="text-[13px] text-mist-500">2015 – 2016</p>
+                <p class="font-semibold">Liv Hospital</p>
+              </div>
+              <div class="rounded-xl border border-mist-200 p-4">
+                <p class="text-[13px] text-mist-500">2016 – 2021</p>
+                <p class="font-semibold">Memorial Hastanesi</p>
+              </div>
+              <div class="rounded-xl border border-mist-200 p-4">
+                <p class="text-[13px] text-mist-500">2021 – 2026</p>
+                <p class="font-semibold">Muayenehane</p>
+              </div>
+            </div>
+          </li>
+          <li class="tl-item is-current">
+            <span class="tl-dot"></span>
+            <p class="font-display font-bold text-gold-500 text-[14px]">Eylül 2026 – Günümüz</p>
+            <h3 class="mt-1 font-display font-semibold text-[19px]">HC International Clinic</h3>
+            <p class="mt-1 text-mist-500">Çankaya / Ankara'da hasta kabulü.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= AKADEMİK ================= -->
+    <section id="akademik" class="relative py-20 lg:py-28 bg-navy-900 text-white overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 22px 22px;" aria-hidden="true"></div>
+      <div class="relative max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="font-display font-bold text-[32px] sm:text-[40px] leading-tight">Akademik başarılar</h2>
+          <p class="mt-4 text-white/70 text-[16px] leading-relaxed">Uluslararası literatüre katkı; Google Scholar ve PubMed kayıtlarına dayalı güncel metrikler.</p>
+        </div>
+
+        <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 rounded-3xl overflow-hidden">
+          <div class="bg-navy-900 p-8">
+            <i class="fa-solid fa-quote-right text-gold-300" aria-hidden="true"></i>
+            <p class="mt-6 font-display font-extrabold text-[48px] leading-none"><span class="counter" data-target="4410">4.410</span></p>
+            <p class="mt-3 text-white/70 text-[14px]">Uluslararası atıf<br /><span class="text-white/50">Google Scholar</span></p>
+          </div>
+          <div class="bg-navy-900 p-8">
+            <i class="fa-solid fa-chart-line text-gold-300" aria-hidden="true"></i>
+            <p class="mt-6 font-display font-extrabold text-[48px] leading-none"><span class="counter" data-target="34">34</span></p>
+            <p class="mt-3 text-white/70 text-[14px]">H-index<br /><span class="text-white/50">Google Scholar</span></p>
+          </div>
+          <div class="bg-navy-900 p-8">
+            <i class="fa-solid fa-layer-group text-gold-300" aria-hidden="true"></i>
+            <p class="mt-6 font-display font-extrabold text-[48px] leading-none"><span class="counter" data-target="65">65</span></p>
+            <p class="mt-3 text-white/70 text-[14px]">i10-index<br /><span class="text-white/50">Google Scholar</span></p>
+          </div>
+          <div class="bg-navy-900 p-8">
+            <i class="fa-solid fa-file-medical text-gold-300" aria-hidden="true"></i>
+            <p class="mt-6 font-display font-extrabold text-[48px] leading-none"><span class="counter" data-target="69">69</span></p>
+            <p class="mt-3 text-white/70 text-[14px]">Uluslararası yayın<br /><span class="text-white/50">PubMed kayıtlı</span></p>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 gap-6">
+          <div class="flex items-start gap-5 rounded-2xl border border-white/10 p-6">
+            <span class="grid place-items-center shrink-0 w-12 h-12 rounded-xl bg-gold-500/15 text-gold-300"><i class="fa-solid fa-book" aria-hidden="true"></i></span>
+            <div>
+              <p class="font-display font-bold text-[22px]">1 uluslararası kitap</p>
+              <p class="text-white/70 text-[14px] mt-1">Editörlük</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-5 rounded-2xl border border-white/10 p-6">
+            <span class="grid place-items-center shrink-0 w-12 h-12 rounded-xl bg-gold-500/15 text-gold-300"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+            <div>
+              <p class="font-display font-bold text-[22px]">3 uluslararası kitap bölümü</p>
+              <p class="text-white/70 text-[14px] mt-1">Bölüm yazarlığı</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HİZMETLER ================= -->
+    <section id="hizmetler" class="py-20 lg:py-28 bg-mist-50">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="font-display font-bold text-[32px] sm:text-[40px] leading-tight">Hizmet konuları</h2>
+          <p class="mt-4 text-mist-500 text-[16px] leading-relaxed">Sindirim sistemi ve karaciğer hastalıklarında tanıdan tedaviye, takipten endoskopik girişimlere kadar kapsamlı değerlendirme.</p>
+        </div>
+
+        <div class="mt-12 grid lg:grid-cols-2 gap-6">
+          <article class="bg-white rounded-3xl shadow-soft p-8 lg:p-10">
+            <span class="grid place-items-center w-14 h-14 rounded-2xl bg-teal-100 text-teal-700 text-xl"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></span>
+            <h3 class="mt-6 font-display font-bold text-[24px]">Gastroenteroloji ve Hepatoloji</h3>
+            <p class="mt-3 text-mist-500 leading-relaxed">Mide, bağırsak, pankreas, safra yolları ve karaciğer hastalıklarında klinik tanı ve tedavi.</p>
+            <ul class="mt-6 grid sm:grid-cols-2 gap-x-6 gap-y-3 text-[15px]">
+              <li class="flex gap-3"><i class="fa-solid fa-check text-teal-600 mt-1" aria-hidden="true"></i>Reflü ve gastrit</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-teal-600 mt-1" aria-hidden="true"></i>Peptik ülser, H. pylori</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-teal-600 mt-1" aria-hidden="true"></i>İltihabi bağırsak hastalıkları</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-teal-600 mt-1" aria-hidden="true"></i>İrritabl bağırsak sendromu</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-teal-600 mt-1" aria-hidden="true"></i>Viral hepatitler (B, C)</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-teal-600 mt-1" aria-hidden="true"></i>Yağlı karaciğer, siroz</li>
+            </ul>
+          </article>
+
+          <article class="bg-white rounded-3xl shadow-soft p-8 lg:p-10">
+            <span class="grid place-items-center w-14 h-14 rounded-2xl bg-gold-100 text-gold-500 text-xl"><i class="fa-solid fa-microscope" aria-hidden="true"></i></span>
+            <h3 class="mt-6 font-display font-bold text-[24px]">Endoskopik girişimler</h3>
+            <p class="mt-3 text-mist-500 leading-relaxed">Tanı ve tedavi amaçlı endoskopik işlemler, uygun sedasyon ve konfor koşullarında.</p>
+            <ul class="mt-6 grid sm:grid-cols-2 gap-x-6 gap-y-3 text-[15px]">
+              <li class="flex gap-3"><i class="fa-solid fa-check text-gold-500 mt-1" aria-hidden="true"></i>Gastroskopi</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-gold-500 mt-1" aria-hidden="true"></i>Kolonoskopi</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-gold-500 mt-1" aria-hidden="true"></i>Polip çıkarılması</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-gold-500 mt-1" aria-hidden="true"></i>Endoskopik biyopsi</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-gold-500 mt-1" aria-hidden="true"></i>Kolon kanseri taraması</li>
+              <li class="flex gap-3"><i class="fa-solid fa-check text-gold-500 mt-1" aria-hidden="true"></i>Kanama kontrolü</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ANLAŞMALI KURUMLAR ================= -->
+    <section id="kurumlar" class="py-20 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="rounded-3xl border border-mist-200 p-8 lg:p-12 grid lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7">
+            <h2 class="font-display font-bold text-[28px] sm:text-[34px] leading-tight">Anlaşmalı kurumlar ve sigortalar</h2>
+            <p class="mt-4 text-mist-500 text-[16px] leading-relaxed max-w-xl">
+              HC International Clinic ile anlaşmalı olan tüm özel sağlık sigortaları ve kurumlar geçerlidir. Poliçenizin kapsamını randevu sırasında birlikte teyit edebiliriz.
+            </p>
+          </div>
+          <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+            <div class="rounded-2xl bg-mist-50 p-5">
+              <i class="fa-solid fa-shield-heart text-teal-600 text-xl" aria-hidden="true"></i>
+              <p class="mt-3 font-semibold text-[15px]">Özel sağlık sigortaları</p>
+            </div>
+            <div class="rounded-2xl bg-mist-50 p-5">
+              <i class="fa-solid fa-building text-teal-600 text-xl" aria-hidden="true"></i>
+              <p class="mt-3 font-semibold text-[15px]">Anlaşmalı kurumlar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= İLETİŞİM ================= -->
+    <section id="iletisim" class="py-20 lg:py-28 bg-mist-50">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <div class="max-w-2xl">
+            <h2 class="font-display font-bold text-[32px] sm:text-[40px] leading-tight">Lokasyonlar ve iletişim</h2>
+            <p class="mt-4 text-mist-500 text-[16px] leading-relaxed">Randevu ve bilgi için telefonla ulaşabilirsiniz.</p>
+          </div>
+          <p class="flex items-center gap-3 font-display font-bold text-[24px] text-navy-900">
+            <i class="fa-solid fa-phone text-teal-600 text-[18px]" aria-hidden="true"></i>
+            <a href="tel:+905377922799" class="hover:text-teal-700 transition-colors">0537 792 27 99</a>
+          </p>
+        </div>
+
+        <div class="mt-12 grid lg:grid-cols-2 gap-6">
+          <!-- Clinic -->
+          <article class="bg-white rounded-3xl shadow-soft overflow-hidden flex flex-col">
+            <div class="aspect-[16/9] bg-mist-100">
+              <iframe title="HC International Clinic harita" class="w-full h-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://maps.google.com/maps?q=HC%20International%20Clinic%20Ho%C5%9Fdere%20Cd%20No%20147%20%C3%87ankaya%20Ankara&z=15&output=embed"></iframe>
+            </div>
+            <div class="p-7 ">
+              <span class="self-start rounded-full bg-gold-100 text-gold-500 text-[12px] font-semibold px-3 py-1">Klinik</span>
+              <h3 class="mt-4 font-display font-bold text-[22px]">HC International Clinic</h3>
+              <p class="mt-2 text-mist-500 leading-relaxed flex gap-3"><i class="fa-solid fa-location-dot text-teal-600 mt-1" aria-hidden="true"></i>Hoşdere Cd. No: 147, 06690 Çankaya / Ankara</p>
+              <p class="mt-2 text-mist-500 flex gap-3"><i class="fa-solid fa-phone text-teal-600 mt-1" aria-hidden="true"></i><a href="tel:+905377922799" class="hover:text-teal-700 transition-colors">0537 792 27 99</a></p>
+            </div>
+          </article>
+
+          <!-- Office -->
+          <article class="bg-white rounded-3xl shadow-soft overflow-hidden flex flex-col">
+            <div class="aspect-[16/9] bg-mist-100">
+              <iframe title="Balgat muayenehane harita" class="w-full h-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://maps.google.com/maps?q=Ege%20Plaza%20Mevlana%20Bulvar%C4%B1%20182%20Balgat%20Ankara&z=15&output=embed"></iframe>
+            </div>
+            <div class="p-7 ">
+              <span class="self-start rounded-full bg-teal-100 text-teal-700 text-[12px] font-semibold px-3 py-1">Muayenehane</span>
+              <h3 class="mt-4 font-display font-bold text-[22px]">Balgat Muayenehanesi</h3>
+              <p class="mt-2 text-mist-500 leading-relaxed flex gap-3"><i class="fa-solid fa-location-dot text-teal-600 mt-1" aria-hidden="true"></i>İşçi Blokları, Ege Plaza, Mevlana Bulvarı 182/28, Balgat / Ankara</p>
+              <p class="mt-2 text-mist-500 flex gap-3"><i class="fa-solid fa-phone text-teal-600 mt-1" aria-hidden="true"></i><a href="tel:+905377922799" class="hover:text-teal-700 transition-colors">0537 792 27 99</a></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-navy-950 text-white/70" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-12 grid md:grid-cols-3 gap-8 text-[14px]">
+      <div>
+        <p class="font-display font-bold text-white text-[17px]">Prof. Dr. Hakan Bozkaya</p>
+        <p class="mt-1">Gastroenteroloji ve Hepatoloji Uzmanı</p>
+      </div>
+      <div>
+        <p class="text-white font-semibold">Adresler</p>
+        <p class="mt-2">HC International Clinic, Hoşdere Cd. No: 147, Çankaya / Ankara</p>
+        <p class="mt-1">Ege Plaza, Mevlana Bulvarı 182/28, Balgat / Ankara</p>
+      </div>
+      <div>
+        <p class="text-white font-semibold">Telefon</p>
+        <a href="tel:+905377922799" class="mt-2 inline-flex items-center gap-2 text-gold-300 hover:text-white font-semibold text-[16px]"><i class="fa-solid fa-phone" aria-hidden="true"></i> 0537 792 27 99</a>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <p class="max-w-7xl mx-auto px-5 lg:px-8 py-5 text-[12px] text-white/50">
+        © <span id="year"></span> Prof. Dr. Hakan Bozkaya. Bu sitedeki bilgiler yalnızca bilgilendirme amaçlıdır; tanı ve tedavi için hekim muayenesi gereklidir.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // Header background on scroll
+      const header = document.getElementById('siteHeader');
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 16);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Mobile menu
+      const btn = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      const icon = btn.querySelector('i');
+      const setMenu = (open) => {
+        menu.classList.toggle('hidden-menu', !open);
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+        icon.className = open ? 'fa-solid fa-xmark text-lg' : 'fa-solid fa-bars text-lg';
+        if (open) header.classList.add('scrolled'); else onScroll();
+      };
+      btn.addEventListener('click', () => setMenu(btn.getAttribute('aria-expanded') !== 'true'));
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+      window.addEventListener('resize', () => { if (window.innerWidth >= 1024) setMenu(false); });
+
+      // Active nav link
+      const links = document.querySelectorAll('.nav-link');
+      const sections = [...links].map(l => document.querySelector(l.getAttribute('href')));
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      sections.forEach(s => s && spy.observe(s));
+
+      // Counters
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const fmt = n => n.toLocaleString('tr-TR');
+      const counters = document.querySelectorAll('.counter');
+      const countUp = el => {
+        const target = +el.dataset.target;
+        if (reduce) { el.textContent = fmt(target); return; }
+        const dur = 1600, start = performance.now();
+        const tick = now => {
+          const p = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(Math.round(target * eased));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+      const co = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { countUp(entry.target); co.unobserve(entry.target); }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(c => co.observe(c));
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
